@@ -10,7 +10,7 @@
     "quantity": 2,
     "isOpen": true,
     "isLow": false,
-    "updatedAt": "2026-10-14T19:45:33.304Z",
+    "updatedAt": "2026-10-21T18:46:47.051Z",
     "isBones": true
   },
   {
@@ -25,7 +25,8 @@
     "quantity": 3,
     "isOpen": true,
     "isLow": true,
-    "updatedAt": "2026-10-13T22:12:52.806Z"
+    "updatedAt": "2026-10-21T18:54:47.433Z",
+    "isBones": true
   },
   {
     "id": "5cbed4b5-a8fa-4119-99ef-9f88de9739be",
@@ -39,7 +40,8 @@
     "quantity": 1,
     "isOpen": false,
     "isLow": false,
-    "updatedAt": "2026-10-13T22:19:32.323Z"
+    "updatedAt": "2026-10-21T18:56:23.791Z",
+    "isBones": true
   },
   {
     "id": "e69628b3-eab8-411a-ae56-2847a9597d07",
@@ -66,5 +68,20 @@
     "isOpen": false,
     "isLow": false,
     "updatedAt": "2026-10-14T19:13:04.666Z"
+  },
+  {
+    "id": "fd0d0945-8071-4236-b0bb-39e1cfcf7fb7",
+    "name": "testO",
+    "flavorDescription": "CVFGHFG ",
+    "flavorKeywords": [
+      "chocolate",
+      "pie",
+      "cherry"
+    ],
+    "quantity": 5,
+    "isOpen": false,
+    "isLow": false,
+    "isBones": false,
+    "updatedAt": "2026-10-21T21:42:57.963Z"
   }
 ]

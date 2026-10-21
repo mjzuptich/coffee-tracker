@@ -130,14 +130,16 @@ InventoryFormProps) {
               />
               <button
                 type="button"
+                className="coffee__button--inactive"
                 onClick={() => addFlavor()}
                 disabled={!flavorInput.trim()}>Add
               </button>
             </div>              
-            <div className="flavor-suggestions">
+            <div className="coffee__form-flavor-suggestions">
               {suggestedFlavors.map((flavor) => (
               <button
                 type="button"
+                className="coffee__button--deselected"
                 key={flavor}
                 onClick={() => {
                   const flavors = flavorInput.split(',');
@@ -149,13 +151,13 @@ InventoryFormProps) {
               ))}
             </div>
             
-            <div className="flavor-tags">
+            <div className="coffee__form-flavor-tags">
               {inventory.flavorKeywords.map((flavor) => (
-                <span className="flavor-tag" key={flavor}>
+                <span className="coffee__form-flavor-tag coffee__button" key={flavor}>
                   {flavor}
                   <button
                     type="button"
-                    className="flavor-tag-remove"
+                    className="coffee__form-flavor-tag--remove"
                     aria-label={`Remove ${flavor}`}
                     onClick={() => removeFlavor(flavor)}
                   >
@@ -165,17 +167,22 @@ InventoryFormProps) {
               ))}
             </div>
             <label htmlFor="quantity">Quantity: </label>
-            <div className="coffee__form--flex coffee__form-checkboxes">
-            <input
-                type="number"
-                id="quantity"
-                name="quantity"
-                min="1"
-                step="1"
-                required
-                value={inventory.quantity}
-                onChange={handleChange}
-            />            
+            <div className="coffee__form--flex coffee__form-checkbxes">
+            <select
+              value={inventory.quantity}
+              onChange={(event) =>
+                setInventory((prevInventory) => ({
+                  ...prevInventory,
+                  quantity: Number(event.target.value),
+                }))
+              }
+            >
+              {Array.from({ length: 11 }, (_, i) => (
+                <option key={i} value={i}>
+                  {i}
+                </option>
+              ))}
+            </select>        
             <div className="coffee__form-checkbox">
             <label htmlFor="isBones">Bones</label>
               <input
@@ -208,11 +215,12 @@ InventoryFormProps) {
               />
             </div>
           </div>
-            <button type="submit">
+            <button className="coffee__button" type="submit">
               {coffeeToEdit ? 'Update Coffee' : 'Add to Inventory'}
             </button>
             {coffeeToEdit && (
               <button
+                className="coffee__button"
                 type="button"
                 onClick={onCancel}
               >Cancel
