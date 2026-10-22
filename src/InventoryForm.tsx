@@ -130,7 +130,7 @@ InventoryFormProps) {
               />
               <button
                 type="button"
-                className="coffee__button--inactive"
+                className="coffee__button"
                 onClick={() => addFlavor()}
                 disabled={!flavorInput.trim()}>Add
               </button>
