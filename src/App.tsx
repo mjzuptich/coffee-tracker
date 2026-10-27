@@ -107,6 +107,11 @@ function App() {
     ),
   ].sort();
 
+  const totalBags = inventory.reduce(
+    (total, coffee) => total + coffee.quantity,
+    0
+  );
+
   return (
     <div className="coffee__wrapper" ref={formRef}>
       <InventoryForm
@@ -174,6 +179,7 @@ function App() {
         >
           Bones
       </button>
+      <span className="coffee-inventory__total">Total Bags: {totalBags}</span>
       </div>
         
       {inventory.length === 0 && !isLoading && <p>No inventory available.</p>}
