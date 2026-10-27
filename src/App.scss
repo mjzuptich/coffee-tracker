@@ -52,6 +52,9 @@
         margin-inline-end: 1em;
         height: 36px;
       }
+      &[type="checkbox"] {
+        margin-block-start: .5em;
+      }
     }
     input {
       display: block;
