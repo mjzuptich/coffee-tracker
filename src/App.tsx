@@ -86,7 +86,8 @@ function App() {
     const matchesBones = !selectedBonesStatus || coffee.isBones;
 
     return matchesFlavors && matchesOpen && matchesLow && matchesBones;
-  });
+  })
+  .sort((a, b) => a.name.localeCompare(b.name));;
 
   const allFlavors = [
     ...new Set(
