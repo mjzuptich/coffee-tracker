@@ -115,6 +115,7 @@
     }
     &__total {
       font-weight: bold;
+      margin-inline-start: auto;
     }
     &__card {
       margin-block-end: 1em;
@@ -123,7 +124,7 @@
       position: relative;
     }
     &__filter-flex {
-      display: inline-flex;
+      display: flex;
       .coffee__button {
         margin-inline-end: .5em;
       }
