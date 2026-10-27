@@ -120,6 +120,7 @@ function App() {
       {error && <p>{error}</p>}
       <h2 className="coffee-inventory__title">Inventory</h2>
       <select
+        className="coffee-inventory__select"
         aria-label="Flavor Filter"
         value={selectedFlavors.at(-1) ?? '__all__'}
         onChange={(event) => {

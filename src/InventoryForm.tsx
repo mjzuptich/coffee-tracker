@@ -166,23 +166,26 @@ InventoryFormProps) {
                 </span>
               ))}
             </div>
-            <label htmlFor="quantity">Quantity: </label>
             <div className="coffee__form--flex coffee__form-checkbxes">
-            <select
-              value={inventory.quantity}
-              onChange={(event) =>
-                setInventory((prevInventory) => ({
-                  ...prevInventory,
-                  quantity: Number(event.target.value),
-                }))
-              }
-            >
-              {Array.from({ length: 11 }, (_, i) => (
-                <option key={i} value={i}>
-                  {i}
-                </option>
-              ))}
-            </select>        
+            <div>
+              <label htmlFor="quantity">Qty: </label>
+              <select
+                className="coffee__form-select"
+                value={inventory.quantity}
+                onChange={(event) =>
+                  setInventory((prevInventory) => ({
+                    ...prevInventory,
+                    quantity: Number(event.target.value),
+                  }))
+                }
+              >
+                {Array.from({ length: 11 }, (_, i) => (
+                  <option key={i} value={i}>
+                    {i}
+                  </option>
+                ))}
+              </select>     
+            </div>   
             <div className="coffee__form-checkbox">
             <label htmlFor="isBones">Bones</label>
               <input
