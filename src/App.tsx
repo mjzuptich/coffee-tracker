@@ -1,14 +1,18 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { Coffee } from './data/coffee'
 import InventoryForm from './InventoryForm'
 import './App.scss'
 import bonesLogo from './img/bones-logo.jpg'
 
 function App() {
-  const [inventory, setInventory] = useState<Coffee[]>([])
-  const [selectedFlavors, setSelectedFlavors] = useState<string[]>([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState('')
+  const [inventory, setInventory] = useState<Coffee[]>([]);
+  const [selectedFlavors, setSelectedFlavors] = useState<string[]>([]);
+  const [selectedOpenStatus, setSelectedOpenStatus] = useState(false);
+  const [selectedLowStatus, setSelectedLowStatus] = useState(false);
+  const [selectedBonesStatus, setSelectedBonesStatus] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState('');
+  const formRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     fetch('/api/coffees')
@@ -70,13 +74,20 @@ function App() {
 
   const [editingCoffee, setEditingCoffee] = useState<Coffee | null>(null);
 
-  const visibleInventory = inventory.filter((coffee) =>
-    selectedFlavors.every((selectedFlavor) =>
+  const visibleInventory = inventory.filter((coffee) => {
+    const matchesFlavors = selectedFlavors.every((selectedFlavor) =>
       coffee.flavorKeywords.some(
         (flavor) => flavor.trim().toLowerCase() === selectedFlavor
       )
-    )
-  );
+    );
+
+    const matchesOpen = !selectedOpenStatus || coffee.isOpen;
+    const matchesLow = !selectedLowStatus || coffee.isLow;
+    const matchesBones = !selectedBonesStatus || coffee.isBones;
+
+    return matchesFlavors && matchesOpen && matchesLow && matchesBones;
+  })
+  .sort((a, b) => a.name.localeCompare(b.name));;
 
   const allFlavors = [
     ...new Set(
@@ -97,7 +108,7 @@ function App() {
   ].sort();
 
   return (
-    <div className="coffee__wrapper">
+    <div className="coffee__wrapper" ref={formRef}>
       <InventoryForm
         key={editingCoffee?.id ?? 'new'}
         coffeeToEdit={editingCoffee}
@@ -110,6 +121,7 @@ function App() {
       {error && <p>{error}</p>}
       <h2 className="coffee-inventory__title">Inventory</h2>
       <select
+        className="coffee-inventory__select"
         aria-label="Flavor Filter"
         value={selectedFlavors.at(-1) ?? '__all__'}
         onChange={(event) => {
@@ -136,6 +148,34 @@ function App() {
           </option>
         ))}
       </select>
+
+      <div className="coffee-inventory__filter-flex">
+        <button
+          type="button"
+          className={selectedOpenStatus ? 'coffee__button--active coffee__button' : 'coffee__button'}
+          aria-pressed={selectedOpenStatus}
+          onClick={() => setSelectedOpenStatus((current) => !current)}
+        >
+          Open Bags
+        </button>
+        <button
+          type="button"
+          className={selectedLowStatus ? 'coffee__button--active coffee__button' : 'coffee__button'}
+          aria-pressed={selectedLowStatus}
+          onClick={() => setSelectedLowStatus((current) => !current)}
+        >
+          Low Qty
+        </button>
+        <button
+          type="button"
+          className={selectedBonesStatus ? 'coffee__button--active coffee__button' : 'coffee__button'}
+          aria-pressed={selectedBonesStatus}
+          onClick={() => setSelectedBonesStatus((current) => !current)}
+        >
+          Bones
+      </button>
+      </div>
+        
       {inventory.length === 0 && !isLoading && <p>No inventory available.</p>}
       {error && <p>{error}</p>}
       {isLoading && <p>Loading inventory...</p>}
@@ -152,16 +192,19 @@ function App() {
               ))}
             </p>
             <p className="coffee-inventory__checkbox-item">
-              Open Bag: {coffee.isOpen ? '⛔' : '✅'}
+              <span className="coffee-inventory__check-tag">Open Bag {coffee.isOpen ? '✅' : '⛔'}</span>
+              <span className="coffee-inventory__check-tag">Low Qty Bag {coffee.isLow ? '✅' : '⛔'}</span>
             </p>
-            <p className="coffee-inventory__checkbox-item">
-              Low Qty Bag: {coffee.isLow ? '⛔' : '✅'}</p>
               <button
                 type="button"
-                className="coffee-inventory__button coffee-inventory__button--edit"
+                className="coffee-inventory__button coffee-inventory__button--edit coffee__button"
                 onClick={() => {
                   setSelectedFlavors([]);
                   setEditingCoffee(coffee);
+                  formRef.current?.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start',
+                  });
                 }}>
                 Edit
               </button>
