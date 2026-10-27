@@ -6,9 +6,7 @@
     }
     select {
       outline: none;
-      border: solid 1px lightgrey;      
-      margin-inline-end: 1em;
-      margin-block-end: 1em;
+      border: solid 1px lightgrey;
       height: 28px;
       padding: 3px 6px;
       border-radius: 0;
@@ -62,13 +60,17 @@
     &--flex {
       display: flex;
       gap: .25em;
-      align-items: center;
+      align-items: flex-start;
       margin-block-end: 1em;
 
       & label,
       input {
         margin: 0;
       }
+    }
+    &-select {
+      margin-block-start: .5em;
+      min-width: 70px;
     }
     &-checkbox {
       display: flex;
@@ -106,6 +108,10 @@
     &__list {
       padding: 0;
       list-style: none;
+    }
+    &__select {      
+      margin-inline-end: 1em;
+      margin-block-end: 1em;
     }
     &__card {
       margin-block-end: 1em;

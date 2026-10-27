@@ -101,6 +101,9 @@ const server = createServer(async (request, response) => {
       sendJson(response, 400, { error: 'Invalid coffee data' })
     }
 
+    return
+  }
+
     if (request.method === 'GET') {
       const distPath = resolve(process.cwd(), 'dist')
       const pathname = new URL(request.url, 'http://localhost').pathname
@@ -150,9 +153,6 @@ const server = createServer(async (request, response) => {
         return
       }
     }
-
-    return
-  }
 
   sendJson(response, 404, { error: 'Not found' })
 })
